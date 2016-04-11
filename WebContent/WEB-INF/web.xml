@@ -16,6 +16,6 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>SmartPortFolioService</servlet-name>
-		<url-pattern>/crunchify/*</url-pattern>
+		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
 </web-app>
