@@ -31,8 +31,8 @@ public class ConnectionHelper
 				e.printStackTrace();
 				return null;
 			}
-			String url = "jdbc:mysql://localhost:3306/smartportfoilo?user=root&password=root&useEncoding=true&characterEncoding=UTF-8";
-			//String url = "jdbc:mysql://localhost:3306/iservice?user=root&password=wmpxitdyo=u;b9&useEncoding=true&characterEncoding=UTF-8";
+			String url = "jdbc:mysql://localhost:3306/portfolio?user=root&password=&useEncoding=true&characterEncoding=UTF-8";
+			//String url = "jdbc:mysql://localhost:3306/PortFolio?user=root&password=wmpxitdyo=u;b9&useEncoding=true&characterEncoding=UTF-8";
 			return DriverManager.getConnection(url);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -52,8 +52,9 @@ public class ConnectionHelper
 	}
 	
 	public static void main(String[] args) {
-	
+		getConnection();
 	}
+	
 	
 	
 	

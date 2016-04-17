@@ -1,0 +1,130 @@
+package com.portfolio.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.portfolio.model.Message;
+import com.portfolio.model.Student;
+import com.portfolio.util.ConnectionHelper;
+
+
+
+public class StudentDao {
+	public Message<Student> insertStudent(Student student) throws Exception {
+		
+		System.out.println("on method insertStudent() of Student table");
+		Connection conn = null;
+		Message<Student> message = new Message<Student>();
+		try {
+			String sqlInsert = "insert into student (student_code, student_email, student_password , student_first_name,student_last_name) "
+					+ " values (?,?,?,?,?)";
+			PreparedStatement insert;
+			conn = ConnectionHelper.getConnection();
+			
+			insert = conn.prepareStatement(sqlInsert);
+			insert.setString(1, student.getStudentCode());
+			insert.setString(2, student.getStudentEmail());
+			insert.setString(3, student.getStudentPassword());
+			insert.setString(4, student.getStudentFirstName());
+			insert.setString(5, student.getStudentLastName());
+	
+			insert.executeUpdate();
+
+			int rows = insert.getUpdateCount();
+			System.out.println("rows = " + rows);
+			if (rows == 0) {
+				message.setStatusCode("insertStudent Incorrect");
+				message.setStatusMsg("1");
+			} else {
+				message.setStatusMsg("insertStudent Completed");
+				message.setStatusCode("0");
+				System.out.println("=================== End insertStudent Complete  =====================");
+
+			}
+			insert.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			String tableKey = e.getMessage();
+			throw new Exception(
+					"ERROR:: " + tableKey + "\nCaught: " + e.getClass().getName() + "\nMessage: " + e.getMessage());
+		}
+		conn.close();
+		return message;
+	}
+
+	
+public Message<Student> checkLogin(Student student) throws Exception {
+		
+		System.out.println("on method checkLogin() of Student table");
+		Connection conn = null;
+		ResultSet rs ;
+		PreparedStatement stm ;
+		Message<Student> message = new Message<Student>();
+		try {		
+			String sql = "select *  "+
+				" from student  where (student_code = ? or student_email = ?) and student_password = ?  ";
+			conn = ConnectionHelper.getConnection();
+			stm = conn.prepareStatement(sql);
+			stm.setString(1, student.getStudentCode());
+			stm.setString(2, student.getStudentEmail());
+			stm.setString(3, student.getStudentPassword());
+			rs  = stm.executeQuery();
+			Student stud = new Student();
+			List<Student> studentlist = new ArrayList<Student>();
+			if (rs.next())
+			{
+				stud.setStudentId(rs.getInt("student_id"));
+				stud.setStudentCode(rs.getString("student_code"));
+				stud.setStudentEmail(rs.getString("student_email"));
+				stud.setStudentPassword(rs.getString("student_password"));
+				stud.setStudentFirstName(rs.getString("student_first_name"));
+				stud.setStudentLastName(rs.getString("student_last_name"));
+				message.setStatusCode("0");
+				message.setStatusMsg("login complete");
+				studentlist.add(stud);
+				System.err.println(rs.getString("student_password"));
+				message.setList(studentlist);
+			}
+			else
+			{
+				message.setStatusCode("1");
+				message.setStatusMsg("login incorrect");
+			}
+			
+			
+			
+				//System.out.println("haveRow>>> false");
+			conn.close();
+			rs.close();
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			String tableKey = e.getMessage();
+			throw new Exception(
+					"ERROR:: " + tableKey + "\nCaught: " + e.getClass().getName() + "\nMessage: " + e.getMessage());
+		}
+		conn.close();
+		return message;
+	}
+
+
+
+	public static void main(String[] args) {
+		Student stu = new Student();
+		stu.setStudentCode("590001");
+		stu.setStudentEmail("tongmaster@gmail.com");
+		stu.setStudentPassword("44pps");
+		StudentDao methodStud = new StudentDao();
+		try {
+			methodStud.insertStudent(stu);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("hello");
+			e.printStackTrace();
+		}
+	}
+}
