@@ -3,7 +3,9 @@ package com.portfolio.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.portfolio.model.Message;
@@ -19,10 +21,16 @@ public class StudentDao {
 		Connection conn = null;
 		Message<Student> message = new Message<Student>();
 		try {
-			String sqlInsert = "insert into student (student_code, student_email, student_password , student_first_name,student_last_name) "
-					+ " values (?,?,?,?,?)";
+			String sqlInsert = "insert into student (student_code, student_email, student_password , "
+					+ " student_first_name, student_last_name, studentUniversity,apprenticeStartDate ,apprenticeEndDate) "
+					+ " values (?,?,?,?,?,?,?,?)";
 			PreparedStatement insert;
 			conn = ConnectionHelper.getConnection();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			Date dateStartFormat = formatter.parse(student.getApprenticeStartDate());
+			Date dateEndFormat = formatter.parse(student.getApprenticeEndDate());
+			java.sql.Date startDate = new java.sql.Date(dateStartFormat.getTime());
+			java.sql.Date endDate = new java.sql.Date(dateEndFormat.getTime());
 			
 			insert = conn.prepareStatement(sqlInsert);
 			insert.setString(1, student.getStudentCode());
@@ -30,6 +38,9 @@ public class StudentDao {
 			insert.setString(3, student.getStudentPassword());
 			insert.setString(4, student.getStudentFirstName());
 			insert.setString(5, student.getStudentLastName());
+			insert.setString(6, student.getStudentUniversity());
+			insert.setDate(7, startDate);
+			insert.setDate(8, endDate);
 	
 			insert.executeUpdate();
 

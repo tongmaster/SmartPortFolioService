@@ -6,6 +6,9 @@ public class Student {
 	private String studentPassword;
 	private String studentFirstName;
 	private String studentLastName;
+	private String studentUniversity;
+	private String apprenticeStartDate;
+	private String apprenticeEndDate;
 	
 	public String getStudentFirstName() {
 		return studentFirstName;
@@ -43,6 +46,25 @@ public class Student {
 	public void setStudentPassword(String studentPassword) {
 		this.studentPassword = studentPassword;
 	}
+	public String getStudentUniversity() {
+		return studentUniversity;
+	}
+	public void setStudentUniversity(String studentUniversity) {
+		this.studentUniversity = studentUniversity;
+	}
+	public String getApprenticeStartDate() {
+		return apprenticeStartDate;
+	}
+	public void setApprenticeStartDate(String apprenticeStartDate) {
+		this.apprenticeStartDate = apprenticeStartDate;
+	}
+	public String getApprenticeEndDate() {
+		return apprenticeEndDate;
+	}
+	public void setApprenticeEndDate(String apprenticeEndDate) {
+		this.apprenticeEndDate = apprenticeEndDate;
+	}
+	
 	
 }
 	
