@@ -1,4 +1,8 @@
 package com.portfolio.model;
+
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Student {
 	private int studentId;
 	private String studentCode;

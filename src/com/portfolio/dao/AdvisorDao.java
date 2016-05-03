@@ -19,8 +19,8 @@ public class AdvisorDao {
 		Connection conn = null;
 		Message<Advisor> message = new Message<Advisor>();
 		try {
-			String sqlInsert = "insert into Advisor (Advisor_code, Advisor_email, Advisor_password , Advisor_first_name,Advisor_last_name) "
-					+ " values (?,?,?,?,?)";
+			String sqlInsert = "insert into advisor (advisor_code, advisor_email, advisor_password , advisor_first_name, advisor_last_name , advisor_university) "
+					+ " values (?,?,?,?,?,?)";
 			PreparedStatement insert;
 			conn = ConnectionHelper.getConnection();
 			
@@ -30,6 +30,7 @@ public class AdvisorDao {
 			insert.setString(3, Advisor.getAdvisorPassword());
 			insert.setString(4, Advisor.getAdvisorFirstName());
 			insert.setString(5, Advisor.getAdvisorLastName());
+			insert.setString(6, Advisor.getAdvisorUniversity());
 	
 			insert.executeUpdate();
 

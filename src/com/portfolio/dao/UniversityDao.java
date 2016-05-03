@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.portfolio.model.Advisor;
 import com.portfolio.model.Message;
 import com.portfolio.model.University;
 import com.portfolio.util.ConnectionHelper;

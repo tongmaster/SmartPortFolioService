@@ -1,5 +1,6 @@
 package com.portfolio.service;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -17,7 +18,8 @@ public class CommonEndPoint {
 
 	@Path("/getUniversity")
 	@GET
-	@Produces("application/json")
+	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	public Response Register() throws JSONException {
 
 		JSONObject jsonObject = new JSONObject();
@@ -39,7 +41,10 @@ public class CommonEndPoint {
 		
 		
 		String result = "@Produces(\"application/json\") Output: \n\nF to C Converter Output: \n\n" + jsonObject;
-		return Response.status(200).entity(jsonObject.toString()).build();
+		//return Response.status(200).entity(jsonObject.toString()).build();
+		return Response.status(200).entity(jsonObject.toString()).header("Access-Control-Allow-Origin", "*")
+				.header("Access-Control-Allow-Methods", "POST,GET,PUT,UPDATE,OPTIONS")
+				.header("Access-Control-Allow-Headers", "Content-Type,Accept,X-Requested-With").build();
 	}
 	
 	

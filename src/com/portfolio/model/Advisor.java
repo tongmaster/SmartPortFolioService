@@ -1,5 +1,8 @@
 package com.portfolio.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Advisor {
 	private int advisorId;
 	private String advisorCode;
@@ -7,6 +10,15 @@ public class Advisor {
 	private String advisorPassword;
 	private String advisorFirstName;
 	private String advisorLastName;
+	private String advisorUniversity;
+	
+	
+	public String getAdvisorUniversity() {
+		return advisorUniversity;
+	}
+	public void setAdvisorUniversity(String advisorUniversity) {
+		this.advisorUniversity = advisorUniversity;
+	}
 	public int getAdvisorId() {
 		return advisorId;
 	}
