@@ -41,10 +41,10 @@ public class CommonEndPoint {
 		
 		
 		String result = "@Produces(\"application/json\") Output: \n\nF to C Converter Output: \n\n" + jsonObject;
-		//return Response.status(200).entity(jsonObject.toString()).build();
-		return Response.status(200).entity(jsonObject.toString()).header("Access-Control-Allow-Origin", "*")
+		return Response.status(200).entity(jsonObject.toString()).build();
+	/*	return Response.status(200).entity(jsonObject.toString()).header("Access-Control-Allow-Origin", "*")
 				.header("Access-Control-Allow-Methods", "POST,GET,PUT,UPDATE,OPTIONS")
-				.header("Access-Control-Allow-Headers", "Content-Type,Accept,X-Requested-With").build();
+				.header("Access-Control-Allow-Headers", "Content-Type,Accept,X-Requested-With").build();*/
 	}
 	
 	

@@ -22,7 +22,7 @@ public class StudentDao {
 		Message<Student> message = new Message<Student>();
 		try {
 			String sqlInsert = "insert into student (student_code, student_email, student_password , "
-					+ " student_first_name, student_last_name, studentUniversity,apprenticeStartDate ,apprenticeEndDate) "
+					+ " student_first_name, student_last_name, student_university,apprentice_startdate ,apprentice_enddate) "
 					+ " values (?,?,?,?,?,?,?,?)";
 			PreparedStatement insert;
 			conn = ConnectionHelper.getConnection();
