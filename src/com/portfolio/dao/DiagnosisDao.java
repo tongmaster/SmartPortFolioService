@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.portfolio.model.Advisor;
+import com.portfolio.model.Attendant;
 import com.portfolio.model.Diagnosis;
 import com.portfolio.model.Message;
 import com.portfolio.util.ConnectionHelper;

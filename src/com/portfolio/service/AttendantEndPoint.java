@@ -10,27 +10,27 @@ import javax.ws.rs.core.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.portfolio.dao.AdvisorDao;
-import com.portfolio.model.Advisor;
+import com.portfolio.dao.AttendantDao;
+import com.portfolio.model.Attendant;
 import com.portfolio.model.Message;
 
-@Path("/advisor")
-public class AdvisorEndPoint {
+@Path("/attendant")
+public class AttendantEndPoint {
 
 	@Path("/register")
 	@POST
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
-	public Response Register(Advisor request) throws JSONException {
+	public Response Register(Attendant request) throws JSONException {
 
 		JSONObject jsonObject = new JSONObject();
-		System.out.println(request.getAdvisorCode());
-		AdvisorDao dao = new  AdvisorDao();
-		Message<Advisor> advisorList = null;
+		System.out.println(request.getAttendantCode());
+		AttendantDao dao = new  AttendantDao();
+		Message<Attendant> attendantList = null;
 		try {
-			advisorList = dao.insertAdvisor(request);
-			jsonObject.put("stutusCode", advisorList.getStatusCode());
-			jsonObject.put("stutusMsg", advisorList.getStatusMsg());
+			attendantList = dao.insertAttendant(request);
+			jsonObject.put("stutusCode", attendantList.getStatusCode());
+			jsonObject.put("stutusMsg", attendantList.getStatusMsg());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -53,18 +53,18 @@ public class AdvisorEndPoint {
 	public Response login(String login) throws JSONException {
 
 		JSONObject jsonObject = new JSONObject(login);
-		Advisor advisor  = new Advisor();
-		advisor.setAdvisorCode(jsonObject.getString("code"));
-		advisor.setAdvisorEmail(jsonObject.getString("email"));
-		advisor.setAdvisorPassword(jsonObject.getString("password"));
-		AdvisorDao dao = new  AdvisorDao();
-		Message<Advisor> advisorList = null;
+		Attendant attendant  = new Attendant();
+		attendant.setAttendantCode(jsonObject.getString("code"));
+		attendant.setAttendantEmail(jsonObject.getString("email"));
+		attendant.setAttendantPassword(jsonObject.getString("password"));
+		AttendantDao dao = new  AttendantDao();
+		Message<Attendant> attendantList = null;
 		JSONObject result = new JSONObject();
 		try {
-			advisorList = dao.checkLogin(advisor);
-			result.put("stutusCode", advisorList.getStatusCode());
-			result.put("stutusMsg", advisorList.getStatusMsg());
-			result.put("advisor", advisorList.getList());
+			attendantList = dao.checkLogin(attendant);
+			result.put("stutusCode", attendantList.getStatusCode());
+			result.put("stutusMsg", attendantList.getStatusMsg());
+			result.put("attendant", attendantList.getList());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
