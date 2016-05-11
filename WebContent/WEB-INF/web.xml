@@ -22,6 +22,7 @@
 
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	<!-- 
 	<filter>
 		<filter-name>cross-origin</filter-name>
 		<filter-class>org.eclipse.jetty.servlets.CrossOriginFilter</filter-class>
@@ -30,7 +31,8 @@
 		<filter-name>cross-origin</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	<!-- 
+	 -->
+	
 	<filter>
 		<filter-name>CorsFilter</filter-name>
 		<filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
@@ -39,7 +41,7 @@
 		<filter-name>CorsFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	 -->
+	
 	<servlet-mapping>
 		<servlet-name>SmartPortFolioService</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
