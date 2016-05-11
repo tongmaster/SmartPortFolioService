@@ -28,7 +28,7 @@ public Message<Knowledge> findKnowledge(Knowledge knowldge) throws Exception {
 		
 		try {		
 			String sql = "select *  "+
-				" from Knowledge  where (knowledge_name = ? or knowledge_id = ? or knowledge_createdate = ?  ";
+				" from Knowledge  where (knowledge_name = ? or knowledge_id = ? or knowledge_createdate = ? ) ";
 			conn = ConnectionHelper.getConnection();
 			stm = conn.prepareStatement(sql);
 			
