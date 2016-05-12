@@ -76,12 +76,27 @@ public Message<Student> checkLogin(Student student) throws Exception {
 		Message<Student> message = new Message<Student>();
 		try {		
 			String sql = "select *  "+
-				" from student  where (student_code = ? or student_email = ?) and student_password = ?  ";
+				" from student  where (? is null OR (student_code = ?)) AND (? is null OR (student_email = ?)) and student_password = ?  ";
 			conn = ConnectionHelper.getConnection();
 			stm = conn.prepareStatement(sql);
-			stm.setString(1, student.getStudentCode());
-			stm.setString(2, student.getStudentEmail());
-			stm.setString(3, student.getStudentPassword());
+			if(!("").equals(student.getStudentCode()))
+			{
+				stm.setString(1, student.getStudentCode());
+				stm.setString(2, student.getStudentCode());
+				stm.setNull(3, java.sql.Types.NULL);
+				stm.setNull(4, java.sql.Types.NULL);
+				stm.setString(5, student.getStudentPassword());
+			}
+			else if(!("").equals(student.getStudentEmail()))
+			{
+				stm.setNull(1, java.sql.Types.NULL);
+				stm.setNull(2, java.sql.Types.NULL);
+				stm.setString(3, student.getStudentEmail());
+				stm.setString(4, student.getStudentEmail());
+				stm.setString(5, student.getStudentPassword());
+				
+			}
+			
 			rs  = stm.executeQuery();
 			Student stud = new Student();
 			List<Student> studentlist = new ArrayList<Student>();

@@ -53,15 +53,26 @@ public class StudentEndPoint {
 	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	public Response login(String login) throws JSONException {
-
+		System.out.println(login);
 		JSONObject jsonObject = new JSONObject(login);
-		String code = (String)jsonObject.get("code");
-		String email = (String)jsonObject.get("email");
+		String code = (String)jsonObject.get("studentid");
+		//String email = (String)jsonObject.get("email");
 		String password = (String)jsonObject.get("password");
-		System.out.println((String)jsonObject.get("code")+" "+(String)jsonObject.getString("email")+" "+jsonObject.getString("password"));
+		//System.out.println((String)jsonObject.get("code")+" "+(String)jsonObject.getString("email")+" "+jsonObject.getString("password"));
 		Student student  = new Student();
-		student.setStudentCode(code);
-		student.setStudentEmail(email);
+		CharSequence cs1 = "@";
+		if(code.contains(cs1))
+		{
+			student.setStudentEmail(code);
+			student.setStudentCode("");
+		}
+		else
+		{
+			student.setStudentEmail("");
+			student.setStudentCode(code);
+		}
+			
+		//student.setStudentEmail(email);
 		student.setStudentPassword(password);
 		StudentDao dao = new  StudentDao();
 		Message<Student> studentList = null;
