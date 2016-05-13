@@ -54,10 +54,22 @@ public class AttendantEndPoint {
 
 		JSONObject jsonObject = new JSONObject(login);
 		Attendant attendant  = new Attendant();
-		attendant.setAttendantCode(jsonObject.getString("code"));
-		attendant.setAttendantEmail(jsonObject.getString("email"));
-		attendant.setAttendantPassword(jsonObject.getString("password"));
+		String attendantCode = jsonObject.getString("attendantCode");
+		String attendantPassword = jsonObject.getString("attendantPassword");
 		AttendantDao dao = new  AttendantDao();
+		
+		CharSequence cs1 = "@";
+		if(attendantCode.contains(cs1))
+		{
+			attendant.setAttendantEmail(attendantCode);
+			attendant.setAttendantCode("");
+		}
+		else
+		{
+			attendant.setAttendantEmail("");
+			attendant.setAttendantCode(attendantCode);
+		}
+		attendant.setAttendantPassword(attendantPassword);
 		Message<Attendant> attendantList = null;
 		JSONObject result = new JSONObject();
 		try {

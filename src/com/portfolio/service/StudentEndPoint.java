@@ -55,9 +55,9 @@ public class StudentEndPoint {
 	public Response login(String login) throws JSONException {
 		System.out.println(login);
 		JSONObject jsonObject = new JSONObject(login);
-		String code = (String)jsonObject.get("studentid");
+		String code = (String)jsonObject.get("studentCode");
 		//String email = (String)jsonObject.get("email");
-		String password = (String)jsonObject.get("password");
+		String password = (String)jsonObject.get("studentPassword");
 		//System.out.println((String)jsonObject.get("code")+" "+(String)jsonObject.getString("email")+" "+jsonObject.getString("password"));
 		Student student  = new Student();
 		CharSequence cs1 = "@";

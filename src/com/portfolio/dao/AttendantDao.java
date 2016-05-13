@@ -66,13 +66,30 @@ public Message<Attendant> checkLogin(Attendant Attendant) throws Exception {
 		Message<Attendant> message = new Message<Attendant>();
 		try {		
 			String sql = "select *  "+
-				" from Attendant  where (attendant_code = ? or attendant_email = ?) and attendant_password = ?  ";
+				" from Attendant  where (? is null OR (attendant_code = ?)) AND (? is null OR (attendant_email = ?)) and attendant_password = ?  ";
 			conn = ConnectionHelper.getConnection();
 			stm = conn.prepareStatement(sql);
-			stm.setString(1, Attendant.getAttendantCode());
-			stm.setString(2, Attendant.getAttendantEmail());
-			stm.setString(3, Attendant.getAttendantPassword());
+			
+			if(!("").equals(Attendant.getAttendantCode()))
+			{
+				stm.setString(1, Attendant.getAttendantCode());
+				stm.setString(2, Attendant.getAttendantCode());
+				stm.setNull(3, java.sql.Types.NULL);
+				stm.setNull(4, java.sql.Types.NULL);
+				stm.setString(5, Attendant.getAttendantPassword());
+			}
+			else if(!("").equals(Attendant.getAttendantEmail()))
+			{
+				stm.setNull(1, java.sql.Types.NULL);
+				stm.setNull(2, java.sql.Types.NULL);
+				stm.setString(3, Attendant.getAttendantEmail());
+				stm.setString(4, Attendant.getAttendantEmail());
+				stm.setString(5, Attendant.getAttendantPassword());
+				
+			}
+			
 			rs  = stm.executeQuery();
+			System.out.println(stm);
 			Attendant stud = new Attendant();
 			List<Attendant> Attendantlist = new ArrayList<Attendant>();
 			if (rs.next())
