@@ -11,7 +11,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.portfolio.dao.AttendantDao;
+import com.portfolio.dao.MedicalProcedureDao;
 import com.portfolio.model.Attendant;
+import com.portfolio.model.MedicalProcedure;
 import com.portfolio.model.Message;
 
 @Path("/attendant")
@@ -90,5 +92,35 @@ public class AttendantEndPoint {
 				.header("Access-Control-Allow-Methods", "POST,GET,PUT,UPDATE,OPTIONS")
 				.header("Access-Control-Allow-Headers", "Content-Type,Accept,X-Requested-With").build();*/
 		return Response.status(200).entity(result.toString()).build();
+	}
+	
+	@Path("/getAttendant")
+	@GET
+	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	public Response getAttendant() throws JSONException {
+
+		JSONObject jsonObject = new JSONObject();
+		
+		AttendantDao dao = new  AttendantDao();
+		Message<Attendant> AttendantList = null;
+		try {
+			AttendantList = dao.getAttendant();
+			jsonObject.put("stutusCode", AttendantList.getStatusCode());
+			jsonObject.put("stutusMsg", AttendantList.getStatusMsg());
+			jsonObject.put("AttendantList", AttendantList.getList());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jsonObject.put("stutusCode", "-1");
+			jsonObject.put("stutusMsg", e.getMessage());
+		}
+		
+		
+		String result = "@Produces(\"application/json\") Output: \n\nF to C Converter Output: \n\n" + jsonObject;
+		return Response.status(200).entity(jsonObject.toString()).build();
+	/*	return Response.status(200).entity(jsonObject.toString()).header("Access-Control-Allow-Origin", "*")
+				.header("Access-Control-Allow-Methods", "POST,GET,PUT,UPDATE,OPTIONS")
+				.header("Access-Control-Allow-Headers", "Content-Type,Accept,X-Requested-With").build();*/
 	}
 }

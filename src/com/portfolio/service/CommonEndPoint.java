@@ -9,7 +9,9 @@ import javax.ws.rs.core.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.portfolio.dao.MedicalProcedureDao;
 import com.portfolio.dao.UniversityDao;
+import com.portfolio.model.MedicalProcedure;
 import com.portfolio.model.Message;
 import com.portfolio.model.University;
 
@@ -32,6 +34,37 @@ public class CommonEndPoint {
 			jsonObject.put("stutusCode", universityList.getStatusCode());
 			jsonObject.put("stutusMsg", universityList.getStatusMsg());
 			jsonObject.put("university", universityList.getList());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			jsonObject.put("stutusCode", "-1");
+			jsonObject.put("stutusMsg", e.getMessage());
+		}
+		
+		
+		String result = "@Produces(\"application/json\") Output: \n\nF to C Converter Output: \n\n" + jsonObject;
+		return Response.status(200).entity(jsonObject.toString()).build();
+	/*	return Response.status(200).entity(jsonObject.toString()).header("Access-Control-Allow-Origin", "*")
+				.header("Access-Control-Allow-Methods", "POST,GET,PUT,UPDATE,OPTIONS")
+				.header("Access-Control-Allow-Headers", "Content-Type,Accept,X-Requested-With").build();*/
+	}
+	
+	
+	@Path("/getMedicalProcedure")
+	@GET
+	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	public Response MedicalProcedure() throws JSONException {
+
+		JSONObject jsonObject = new JSONObject();
+		
+		MedicalProcedureDao dao = new  MedicalProcedureDao();
+		Message<MedicalProcedure> MedicalProcedureList = null;
+		try {
+			MedicalProcedureList = dao.findMedicalProcedure();
+			jsonObject.put("stutusCode", MedicalProcedureList.getStatusCode());
+			jsonObject.put("stutusMsg", MedicalProcedureList.getStatusMsg());
+			jsonObject.put("medicalProcedureList", MedicalProcedureList.getList());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

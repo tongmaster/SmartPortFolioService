@@ -19,7 +19,7 @@ import com.portfolio.util.ConnectionHelper;
 public class KnowledgeDao {
 
 	
-public Message<Knowledge> findKnowledge(Knowledge knowldge) throws Exception {
+public Message<Knowledge> findKnowledge(Knowledge knowldge,String startDate ,String endDate) throws Exception {
 		
 		System.out.println("on method findKnowledge() of Knowledge table");
 		Connection conn = null;
@@ -27,25 +27,45 @@ public Message<Knowledge> findKnowledge(Knowledge knowldge) throws Exception {
 		PreparedStatement stm ;
 		Message<Knowledge> message = new Message<Knowledge>();
 		
-		try {		
-			String sql = "select *  "+
-				" from Knowledge  where (knowledge_name like ? or knowledge_id = ? or knowledge_createdate = ? ) ";
-			conn = ConnectionHelper.getConnection();
-			stm = conn.prepareStatement(sql);
+		try {	
+			//SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-			Date dateStartFormat = formatter.parse(knowldge.getKnowledgeCreatedate());
-			java.sql.Date createDate = new java.sql.Date(dateStartFormat.getTime());
-			stm.setString(1, "%"+knowldge.getKnowledgeCreateName()+"%");
+			String where = " where 1 = 1 ";
+			if (startDate != null && !startDate.equals("") && endDate != null && !endDate.equals("") ) {
+				
+				Date dateStartFormat = formatter.parse(startDate);
+				java.sql.Date startDateFormat = new java.sql.Date(dateStartFormat.getTime());
+				
+				Date dateEndFormat = formatter.parse(endDate);
+				java.sql.Date endDateFormat = new java.sql.Date(dateEndFormat.getTime());
+				
+				
+			   where +=  " and  knowledge_createdate between '" + startDateFormat+"' and '"+endDateFormat+"'";
+			}
+			if (knowldge.getKnowledgeCatId() != null && !"".equals(knowldge.getKnowledgeCatId())) {
+			   where +=   " and knowledge_cat_id = '" + knowldge.getKnowledgeCatId()+"'";
+			}
+			if (knowldge.getKnowledgeName() != null && !"".equals(knowldge.getKnowledgeName())) {
+			   where += " and  knowledge_name like '%"+knowldge.getKnowledgeName()+"%'";
+			}
+			String SQL = "select *  "
+			           + "  from knowledge  " 
+			           +   where;
 			
-			stm.setString(2, "%"+knowldge.getKnowledgeId()+"%");
-			stm.setDate(3, createDate);
-			System.out.println(createDate);
+			System.out.println(SQL);
+			
+			conn = ConnectionHelper.getConnection();
+			stm = conn.prepareStatement(SQL);
+		
+			
 			rs  = stm.executeQuery();
-			Knowledge stud = new Knowledge();
+			System.out.println(stm);
+			Knowledge stud = null;
 			List<Knowledge> Knowledgelist = new ArrayList<Knowledge>();
-			if (rs.next())
+			while (rs.next())
 			{
+				stud = new Knowledge();
 				stud.setKnowledgeCreateName(rs.getString("knowledge_name"));
 				stud.setKnowledgeId(rs.getString("knowledge_id"));
 				stud.setKnowledgeCatId(rs.getString("knowledge_cat_id"));
@@ -59,13 +79,14 @@ public Message<Knowledge> findKnowledge(Knowledge knowldge) throws Exception {
 				Knowledgelist.add(stud);
 				message.setList(Knowledgelist);
 			}
-			else
+			
+			
+			if(Knowledgelist == null || Knowledgelist.size() == 0) 
 			{
 				message.setStatusCode("1");
-				message.setStatusMsg("Knowledge not found");
+				message.setStatusMsg("Knowledge now row");
 			}
-			
-			
+				
 			
 			conn.close();
 			rs.close();

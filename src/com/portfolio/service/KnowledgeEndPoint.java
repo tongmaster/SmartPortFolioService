@@ -58,17 +58,18 @@ public class KnowledgeEndPoint {
 
 		JSONObject jsonObject = new JSONObject(knowledge);
 		String knowledgeName = (String)jsonObject.get("knowledgeName");
-		String knowledgeId = (String)jsonObject.get("knowledgeId");
-		String knowledgeCreateDate = (String)jsonObject.get("knowledgeCreateDate");
+		String knowledgeCatId = (String)jsonObject.get("knowledgeCatId");
+		String knowledgeStartDate = (String)jsonObject.get("knowledgeStartDate");
+		String knowledgeEndDate = (String)jsonObject.get("knowledgeEndDate");
+		String studentid = (String)jsonObject.get("studentid");
 		Knowledge Knowledge  = new Knowledge();
 		Knowledge.setKnowledgeName(knowledgeName);
-		Knowledge.setKnowledgeId(knowledgeId);
-		Knowledge.setKnowledgeCreatedate(knowledgeCreateDate);
+		Knowledge.setKnowledgeCatId(knowledgeCatId);
 		KnowledgeDao dao = new  KnowledgeDao();
 		Message<Knowledge> KnowledgeList = null;
 		JSONObject result = new JSONObject();
 		try {
-			KnowledgeList = dao.findKnowledge(Knowledge);
+			KnowledgeList = dao.findKnowledge(Knowledge,knowledgeStartDate,knowledgeEndDate);
 			result.put("statusCode", KnowledgeList.getStatusCode());
 			result.put("statusMsg", KnowledgeList.getStatusMsg());
 			result.put("knowledge", KnowledgeList.getList());

@@ -18,12 +18,12 @@ public class DiagnosisEndPoint {
 
 	@Path("/patient/")
 	@POST
-	@Produces("application/json")
+	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
 	public Response DiagnosisPatient(Diagnosis diagnosis) throws JSONException {
 
 		JSONObject jsonObject = new JSONObject();
-		System.out.println(diagnosis.getPatientFirstName()+" "+diagnosis.getSymptoms()+" "+diagnosis.getTreatment());
+		System.out.println(diagnosis.getPatientFirstName()+" "+diagnosis.getSymptoms()+" "+diagnosis.getTreatment()+" "+diagnosis.getDiagnosisDate()+" "+diagnosis.getDiagnosisTime());
 		
 		DiagnosisDao dao = new  DiagnosisDao();
 		Message<Diagnosis> diagList = null;

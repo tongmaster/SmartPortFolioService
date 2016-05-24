@@ -25,13 +25,13 @@ public class DiagnosisDao {
 		Message<Diagnosis> message = new Message<Diagnosis>();
 		try {
 			String sqlInsert = "insert into diagnosis (patient_first_name, patient_last_name, symptoms , diagnosis ,treatment"
-					+ " ,confidence_score ,diagnosis_datetime ,diagnosis_date ,diagnosis_time ,md_pro_id ,create_date ) "
-					+ " values (?,?,?,?,?,?,?,?,?,?,?)";
+					+ " ,confidence_score ,diagnosis_datetime ,diagnosis_date ,diagnosis_time ,md_pro_id ,create_date ,attendant_code ) "
+					+ " values (?,?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement insert;
 			conn = ConnectionHelper.getConnection();
 			java.util.Date date= new java.util.Date();
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
-		    Date parsedDate = dateFormat.parse("2559-01-12 23:00:22.0");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		    Date parsedDate = dateFormat.parse(diagnosis.getDiagnosisDate()+" "+diagnosis.getDiagnosisTime());
 		    Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
 		    System.out.println(timestamp);
 			insert = conn.prepareStatement(sqlInsert);
@@ -40,13 +40,15 @@ public class DiagnosisDao {
 			insert.setString(3, diagnosis.getSymptoms());
 			insert.setString(4, diagnosis.getDiagnosis());
 			insert.setString(5, diagnosis.getTreatment());
-			insert.setString(6, diagnosis.getConfidence_score());
+			insert.setString(6, diagnosis.getConfidenceScore());
 			insert.setTimestamp(7, timestamp);
 			insert.setString(8, diagnosis.getDiagnosisDate());
 			insert.setString(9, diagnosis.getDiagnosisTime());
 			insert.setString(10, diagnosis.getMdProId());
+		
 			
 			insert.setTimestamp(11, new Timestamp(date.getTime()));
+			insert.setString(12, diagnosis.getAttendantCode());
 			insert.executeUpdate();
 
 			int rows = insert.getUpdateCount();

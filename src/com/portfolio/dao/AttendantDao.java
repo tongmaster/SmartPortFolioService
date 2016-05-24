@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.portfolio.model.Message;
 import com.portfolio.model.Attendant;
+import com.portfolio.model.MedicalProcedure;
 import com.portfolio.util.ConnectionHelper;
 
 
@@ -66,7 +67,7 @@ public Message<Attendant> checkLogin(Attendant Attendant) throws Exception {
 		Message<Attendant> message = new Message<Attendant>();
 		try {		
 			String sql = "select *  "+
-				" from Attendant  where (? is null OR (attendant_code = ?)) AND (? is null OR (attendant_email = ?)) and attendant_password = ?  ";
+				" from attendant  where (? is null OR (attendant_code = ?)) AND (? is null OR (attendant_email = ?)) and attendant_password = ?  ";
 			conn = ConnectionHelper.getConnection();
 			stm = conn.prepareStatement(sql);
 			
@@ -129,6 +130,51 @@ public Message<Attendant> checkLogin(Attendant Attendant) throws Exception {
 		return message;
 	}
 
+	
+	public Message<Attendant> getAttendant() throws Exception {
+		
+		System.out.println("on method getAttendant() of Attendant table");
+		Connection conn = null;
+		ResultSet rs ;
+		PreparedStatement stm ;
+		Message<Attendant> message = new Message<Attendant>();
+		try {		
+			String sql = "select *  "+
+				" from attendant  ";
+			conn = ConnectionHelper.getConnection();
+			stm = conn.prepareStatement(sql);
+			rs  = stm.executeQuery();
+			Attendant stud = null;
+			List<Attendant> Attendantlist = new ArrayList<Attendant>();
+			while (rs.next())
+			{
+				stud = new Attendant();
+				stud.setAttendantCode(rs.getString("attendant_code"));
+				stud.setAttendantFirstName(rs.getString("attendant_first_name"));
+				stud.setAttendantLastName(rs.getString("attendant_last_name"));
+				
+				message.setStatusCode("0");
+				message.setStatusMsg("attendant found");
+				Attendantlist.add(stud);
+				message.setList(Attendantlist);
+			}
+			
+			
+			
+				//System.out.println("haveRow>>> false");
+			conn.close();
+			rs.close();
+			
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+			String tableKey = e.getMessage();
+			throw new Exception(
+					"ERROR:: " + tableKey + "\nCaught: " + e.getClass().getName() + "\nMessage: " + e.getMessage());
+		}
+		conn.close();
+		return message;
+	}
 
 
 	public static void main(String[] args) {

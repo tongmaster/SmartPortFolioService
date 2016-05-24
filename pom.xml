@@ -67,6 +67,7 @@
 			<artifactId>jetty-servlets</artifactId>
 			<version>9.3.8.v20160314</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>com.thetransactioncompany</groupId>
 			<artifactId>cors-filter</artifactId>

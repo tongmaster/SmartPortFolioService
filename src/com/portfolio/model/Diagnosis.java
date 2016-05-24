@@ -5,12 +5,13 @@ public class Diagnosis {
 	private String diagnosisTime;
 	private Timestamp diagnosisDateTime;
 	private String mdProId;
+	private String attendantCode;
 	private String patientFirstName;
 	private String patientLastName;
 	private String symptoms;
 	private String diagnosis;
 	private String treatment;
-	private String confidence_score;
+	private String confidenceScore;
 	private Timestamp createDate;
 	public String getDiagnosisDate() {
 		return diagnosisDate;
@@ -60,11 +61,11 @@ public class Diagnosis {
 	public void setTreatment(String treatment) {
 		this.treatment = treatment;
 	}
-	public String getConfidence_score() {
-		return confidence_score;
+	public String getConfidenceScore() {
+		return confidenceScore;
 	}
-	public void setConfidence_score(String confidence_score) {
-		this.confidence_score = confidence_score;
+	public void setConfidenceScore(String confidenceScore) {
+		this.confidenceScore = confidenceScore;
 	}
 	public Timestamp getCreateDate() {
 		return createDate;
@@ -77,6 +78,12 @@ public class Diagnosis {
 	}
 	public void setDiagnosisDateTime(Timestamp diagnosisDateTime) {
 		this.diagnosisDateTime = diagnosisDateTime;
+	}
+	public String getAttendantCode() {
+		return attendantCode;
+	}
+	public void setAttendantCode(String attendantCode) {
+		this.attendantCode = attendantCode;
 	}
 	
 	
