@@ -11,6 +11,9 @@ public class Attendant {
 	private String attendantFirstName;
 	private String attendantLastName;
 	private String attendantUniversity;
+	private String pic;
+	private String deadline1;
+	//private String deadline2;
 	
 	
 	public String getAttendantUniversity() {
@@ -55,5 +58,26 @@ public class Attendant {
 	public void setAttendantLastName(String attendantLastName) {
 		this.attendantLastName = attendantLastName;
 	}
+	public String getPic() {
+		return pic;
+	}
+	public void setPic(String pic) {
+		this.pic = pic;
+	}
+	public String getDeadline1() {
+		return deadline1;
+	}
+	public void setDeadline1(String deadline1) {
+		this.deadline1 = deadline1;
+	}
+/*	public String getDeadline2() {
+		return deadline2;
+	}
+	public void setDeadline2(String deadline2) {
+		this.deadline2 = deadline2;
+	}
+	*/
+	
+	
 	
 }

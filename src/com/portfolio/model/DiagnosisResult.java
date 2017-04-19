@@ -1,6 +1,7 @@
 package com.portfolio.model;
 import java.sql.Timestamp;
-public class Diagnosis {
+public class DiagnosisResult {
+	private int diagnosisId;
 	private String diagnosisDate;
 	private String diagnosisTime;
 	private Timestamp diagnosisDateTime;
@@ -16,36 +17,24 @@ public class Diagnosis {
 	private String status;
 	private Timestamp createDate;
 	private String deadlineDate;
-	private String dignosisSuggestion;
-	private int diagnosisId;
 	private int rating;
+	private String dignosisSuggestion;
+	private String approve;
+	private Timestamp approveDate;
 	private String confidenceDetail;
 	private String isRead;
+	private String pic;
+	
+	private String studentFirstName;
+	private String studentLastName;
+	
+	private String mdProName;
+	
+	private String attendantFirstName;
+	private String attendantLastName;
 	
 	
 	
-	
-	
-	
-	
-	public String getIsRead() {
-		return isRead;
-	}
-	public void setIsRead(String isRead) {
-		this.isRead = isRead;
-	}
-	public String getConfidenceDetail() {
-		return confidenceDetail;
-	}
-	public void setConfidenceDetail(String confidenceDetail) {
-		this.confidenceDetail = confidenceDetail;
-	}
-	public int getDiagnosisId() {
-		return diagnosisId;
-	}
-	public void setDiagnosisId(int diagnosisId) {
-		this.diagnosisId = diagnosisId;
-	}
 	public String getDeadlineDate() {
 		return deadlineDate;
 	}
@@ -149,6 +138,75 @@ public class Diagnosis {
 	public void setDignosisSuggestion(String dignosisSuggestion) {
 		this.dignosisSuggestion = dignosisSuggestion;
 	}
+	public String getStudentFirstName() {
+		return studentFirstName;
+	}
+	public void setStudentFirstName(String studentFirstName) {
+		this.studentFirstName = studentFirstName;
+	}
+	public String getStudentLastName() {
+		return studentLastName;
+	}
+	public void setStudentLastName(String studentLastName) {
+		this.studentLastName = studentLastName;
+	}
+	public String getMdProName() {
+		return mdProName;
+	}
+	public void setMdProName(String mdProName) {
+		this.mdProName = mdProName;
+	}
+	public int getDiagnosisId() {
+		return diagnosisId;
+	}
+	public void setDiagnosisId(int diagnosisId) {
+		this.diagnosisId = diagnosisId;
+	}
+	public String getApprove() {
+		return approve;
+	}
+	public void setApprove(String approve) {
+		this.approve = approve;
+	}
+	public Timestamp getApproveDate() {
+		return approveDate;
+	}
+	public void setApproveDate(Timestamp approveDate) {
+		this.approveDate = approveDate;
+	}
+	public String getConfidenceDetail() {
+		return confidenceDetail;
+	}
+	public void setConfidenceDetail(String confidenceDetail) {
+		this.confidenceDetail = confidenceDetail;
+	}
+	public String getIsRead() {
+		return isRead;
+	}
+	public void setIsRead(String isRead) {
+		this.isRead = isRead;
+	}
+	public String getPic() {
+		return pic;
+	}
+	public void setPic(String pic) {
+		this.pic = pic;
+	}
+	public String getAttendantFirstName() {
+		return attendantFirstName;
+	}
+	public void setAttendantFirstName(String attendantFirstName) {
+		this.attendantFirstName = attendantFirstName;
+	}
+	public String getAttendantLastName() {
+		return attendantLastName;
+	}
+	public void setAttendantLastName(String attendantLastName) {
+		this.attendantLastName = attendantLastName;
+	}
+
+	
+	
 	
 	
 }

@@ -13,7 +13,26 @@ public class Student {
 	private String studentUniversity;
 	private String apprenticeStartDate;
 	private String apprenticeEndDate;
+	private String attendantCode;
+	private String amount;
+	private String pic;
 	
+	
+	
+	
+	
+	public String getAmount() {
+		return amount;
+	}
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+	public String getAttendantCode() {
+		return attendantCode;
+	}
+	public void setAttendantCode(String attendantCode) {
+		this.attendantCode = attendantCode;
+	}
 	public String getStudentFirstName() {
 		return studentFirstName;
 	}
@@ -68,6 +87,13 @@ public class Student {
 	public void setApprenticeEndDate(String apprenticeEndDate) {
 		this.apprenticeEndDate = apprenticeEndDate;
 	}
+	public String getPic() {
+		return pic;
+	}
+	public void setPic(String pic) {
+		this.pic = pic;
+	}
+	
 	
 	
 }
